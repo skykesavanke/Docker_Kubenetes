@@ -14,7 +14,7 @@ pipeline{
         stage('Checkout code'){
             steps{
                 script {
-                    git branch : "${branch}" , url : "https://github.com/kaandi02/simplehtml.git"
+                    git branch : "${branch}" , url : "https://github.com/skykesavanke/Docker_Kubenetes.git"
                 }
             }
         }
