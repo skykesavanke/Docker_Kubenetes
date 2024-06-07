@@ -31,7 +31,7 @@ pipeline{
                 }
                 else if(params.Action=='apply'){
                     if(params.ApplyApproval){
-                         sh 'terraform apply -auto-approve'
+                        bat 'terraform apply -auto-approve'
                     }
                 }
                 else if(params.Action=='destroy'){
