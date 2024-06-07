@@ -4,7 +4,7 @@ variable "aws_region" {
   
 }
 variable "aws_ecr_repo" {
-        description = "describes the repository"
+        description = "This defines the repository"
         type =string
   
 }
