@@ -27,7 +27,7 @@ pipeline{
         steps{
             script{
                 if(params.Action=='plan'){
-                    bat 'terraform plan -var-file=variable.tfvars'
+                    bat 'terraform plan'
                 }
                 else if(params.Action=='apply'){
                     if(params.ApplyApproval){
