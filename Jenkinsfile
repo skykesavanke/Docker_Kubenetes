@@ -1,7 +1,7 @@
 pipeline{
     agent any
      parameters{
-        choice(name:'branch',choices:['master'],description:'Select the branch to be performed')
+        choice(name:'branch',choices:['main'],description:'Select the branch to be performed')
         choice(name:'Action',choices:['plan','apply','destroy'],description:'Select the action to be performed')
         booleanParam(name:'ApplyApprove',defaultValue:false,description:'Are you confirming terraform apply')
         booleanParam(name:'DestroyApprove',defaultValue:false,description:'Are you confirming terraform destroy')
