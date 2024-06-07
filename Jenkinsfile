@@ -14,7 +14,7 @@ pipeline{
         stage('Checkout code'){
             steps{
                 script {
-                    git branch : "${branch}" , url : "https://github.com/skykesavanke/Docker_Kubenetes.git"
+                    git branch :"${branch}" , url : "https://github.com/skykesavanke/Docker_Kubenetes.git"
                 }
             }
         }
@@ -27,16 +27,16 @@ pipeline{
         steps{
             script{
                 if(params.Action=='plan'){
-                    bat 'terraform plan -var-file=variable.tfvars'
+                    bat 'C:\\Users\\kesavank\\Terraform\\terraform plan -var-file=variable.tfvars'
                 }
                 else if(params.Action=='apply'){
                     if(params.ApplyApproval){
-                        bat 'terraform apply -auto-approve'
+                        bat 'C:\\Users\\kesavank\\Terraform\\terraform apply -auto-approve'
                     }
                 }
                 else if(params.Action=='destroy'){
                     if(params.DestroyApproval){
-                        bat'terraform destroy -auto-approve'
+                        bat 'C:\\Users\\kesavank\\Terraform\\terraform destroy -auto-approve'
                     }
                 }
         }
