@@ -20,23 +20,23 @@ pipeline{
         }
         stage('Terraform Initialize'){
             steps{
-            bat 'C:\\Users\\kesavank\\Terraform\\terraform init'
+            bat 'terraform init'
         }
     }
     stage('Terraform Create'){
         steps{
             script{
                 if(params.Action=='plan'){
-                    bat 'C:\\Users\\kesavank\\Terraform\\terraform plan'
+                    bat 'terraform plan'
                 }
                 else if(params.Action=='apply'){
                     if(params.ApplyApproval){
-                         sh 'C:\\Users\\kesavank\\Terraform\\terraform apply -auto-approve'
+                         sh 'terraform apply -auto-approve'
                     }
                 }
                 else if(params.Action=='destroy'){
                     if(params.DestroyApproval){
-                        bat'C:\\Users\\kesavank\\Terraform\\terraform destroy -auto-approve'
+                        bat'terraform destroy -auto-approve'
                     }
                 }
         }
