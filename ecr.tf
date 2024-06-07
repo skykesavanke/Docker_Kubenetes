@@ -1,9 +1,9 @@
 provider "aws" {
-    region = var.aws_region
+    region = variable.aws_region
   
 }
 resource "aws_ecr_repository" "example-repo" {
-   name = var.ecr_repo
+   name = variable.ecr_repo
    image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
