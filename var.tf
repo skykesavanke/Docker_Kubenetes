@@ -7,6 +7,6 @@ variable "aws_region" {
 variable "ecr_repo" {
         description = "This defines the repository"
         type =string
-        default = "cluster_Repo"
+        default = "cluster_repo"
   
 }
