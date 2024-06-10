@@ -38,6 +38,7 @@ resource "aws_eks_node_group" "eks_nodes" {
     max_size     = 2
     min_size     = 1
   }
+}
 
 #   depends_on = [
 #     aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
