@@ -19,28 +19,28 @@ resource "aws_eks_cluster" "eks" {
     subnet_ids = aws_subnet.main[*].id
   }
 
-  depends_on = [
-    aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.eks_cluster_AmazonEKSVPCResourceController
-  ]
+#   depends_on = [
+#     aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy,
+#     aws_iam_role_policy_attachment.eks_cluster_AmazonEKSVPCResourceController
+#   ]
 }
 
 
 
-resource "aws_eks_node_group" "eks_nodes" {
-  cluster_name    = var.aws_eks_cluster
-  node_group_name = var.aws_eks_node_group
-  node_role_arn   = aws_iam_role.eks_node_role.arn
-  subnet_ids      = aws_subnet.main[*].id
+# resource "aws_eks_node_group" "eks_nodes" {
+#   cluster_name    = var.aws_eks_cluster
+#   node_group_name = var.aws_eks_node_group
+#   node_role_arn   = aws_iam_role.eks_node_role.arn
+#   subnet_ids      = aws_subnet.main[*].id
 
-  scaling_config {
-    desired_size = 2
-    max_size     = 2
-    min_size     = 1
-  }
+#   scaling_config {
+#     desired_size = 2
+#     max_size     = 2
+#     min_size     = 1
+#   }
 
-  depends_on = [
-    aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.eks_node_AmazonEC2ContainerRegistryReadOnly
-  ]
+#   depends_on = [
+#     aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
+#     aws_iam_role_policy_attachment.eks_node_AmazonEC2ContainerRegistryReadOnly
+#   ]
 }
