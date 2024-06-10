@@ -9,7 +9,7 @@ pipeline{
     environment {
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
-        IMAGE_REPO_NAME = 'cluster_repo'
+        IMAGE_REPO_NAME =  "${ecr_repo}".toLowerCase()
         AWS_REGION = 'us-east-1'
         ECR_URL= "211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com"
     }
@@ -52,12 +52,16 @@ pipeline{
                             def ecrUrl = "211125415675.dkr.ecr.${awsRegion}.amazonaws.com"
 
                         
-                        bat '''
-                               docker build -t ${IMAGE_REPO_NAME}:latest .
-                                aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_URL}
-                                docker tag ${IMAGE_REPO_NAME}:latest ${ECR_URL}/${IMAGE_REPO_NAME}:latest
-                                docker push ${ECR_URL}/${IMAGE_REPO_NAME}:latest
-                        '''
+                        bat """
+                                set IMAGE_REPO_NAME=${imageRepoName}
+                                set AWS_REGION=${awsRegion}
+                                set ECR_URL=${ecrUrl}
+
+                                docker build -t  %IMAGE_REPO_NAME%:latest .
+                                aws ecr get-login-password --region %AWS_REGION% | docker login --username AWS --password-stdin  %ECR_URL%
+                                docker tag %IMAGE_REPO_NAME%:latest %ECR_URL%/%IMAGE_REPO_NAME%:latest
+                                docker push  %ECR_URL%/%IMAGE_REPO_NAME%:latest
+                       """
                     } 
                     }
                     else {
