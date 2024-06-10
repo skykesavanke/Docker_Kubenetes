@@ -11,7 +11,7 @@ resource "aws_subnet" "main" {
   map_public_ip_on_launch = true
 }
 
-resource "aws_eks_cluster" "eks_role" {
+resource "aws_eks_cluster" "eks" {
   name     = var.aws_eks_cluster
   role_arn = aws_iam_role.eks_cluster_role.arn
 

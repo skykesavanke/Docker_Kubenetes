@@ -13,7 +13,7 @@ variable "ecr_repo" {
 variable "aws_eks_cluster" {
   description = "This defines the eks cluster"
   type        = string
-  default     = "cluster_eks"
+  default     = "cluster-eks"
 
 }
 
