@@ -28,5 +28,11 @@ variable "azs" {
   type        = list(string)
   default     = ["us-east-1a", "us-east-1b"]
 }
+variable "aws_eks_node_group" {
+  description = "This defines the eks cluster"
+  type        = string
+  default     = "eks-node-group"
+
+}
 
 
