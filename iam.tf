@@ -1,5 +1,5 @@
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "eks-cluster-role"
+  name = "eksclusterrole"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -22,8 +22,9 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSVPCResourceContr
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.eks_cluster_role.arn
 }
+
 resource "aws_iam_role" "eks_node_role" {
-  name = "eks_node_role"
+  name = "eksnoderole"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
