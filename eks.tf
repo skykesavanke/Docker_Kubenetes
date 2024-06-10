@@ -1,6 +1,3 @@
-provider "aws" {
-  region = var.aws_region
-}
 
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
@@ -14,9 +11,9 @@ resource "aws_subnet" "main" {
   map_public_ip_on_launch = true
 }
 
-resource "aws_eks_cluster" "eks" {
+resource "aws_eks_cluster" "eks_role" {
   name     = var.aws_eks_cluster
-  role_arn = aws_iam_role.eks_cluster.arn
+  role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
     subnet_ids = aws_subnet.main[*].id
@@ -31,9 +28,9 @@ resource "aws_eks_cluster" "eks" {
 
 
 resource "aws_eks_node_group" "eks_nodes" {
-  cluster_name    = aws_eks_cluster.eks.name
+  cluster_name    = var.aws_eks_cluster
   node_group_name = "eks-node-group"
-  node_role_arn   = aws_iam_role.eks_node.arn
+  node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = aws_subnet.main[*].id
 
   scaling_config {

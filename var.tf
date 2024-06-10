@@ -1,20 +1,20 @@
 variable "aws_region" {
-        description = "This describe the region"
-        type = string
-        default = "us-east-1"
-  
+  description = "This describe the region"
+  type        = string
+  default     = "us-east-1"
+
 }
 variable "ecr_repo" {
-        description = "This defines the repository"
-        type =string
-        default = "cluster_repo"
-  
+  description = "This defines the repository"
+  type        = string
+  default     = "cluster_repo"
+
 }
-variable "aws_eks_cluster"  {
-        description = "This defines the eks cluster"
-        type =string
-        default = "cluster_eks"
-  
+variable "aws_eks_cluster" {
+  description = "This defines the eks cluster"
+  type        = string
+  default     = "cluster_eks"
+
 }
 
 variable "vpc_cidr" {
