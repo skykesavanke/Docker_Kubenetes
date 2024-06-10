@@ -11,6 +11,7 @@ pipeline{
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
         IMAGE_REPO_NAME = 'cluster_repo'
         AWS_REGION = 'us-east-1'
+        ECR_URL= "211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com"
     }
     
     stages{
@@ -52,10 +53,10 @@ pipeline{
 
                         
                         bat '''
-                            docker build -t ${imageRepoName}:latest .
-                            aws ecr get-login-password --region ${awsRegion} | docker login --username AWS --password-stdin 211125415675.dkr.ecr.${awsRegion}.amazonaws.com
-                            docker tag ${imageRepoName}:latest 211125415675.dkr.ecr.${awsRegion}.amazonaws.com/${imageRepoName}:latest
-                            docker push 211125415675.dkr.ecr.${awsRegion}.amazonaws.com/${imageRepoName}:latest
+                               docker build -t ${IMAGE_REPO_NAME}:latest .
+                                aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_URL}
+                                docker tag ${IMAGE_REPO_NAME}:latest ${ECR_URL}/${IMAGE_REPO_NAME}:latest
+                                docker push ${ECR_URL}/${IMAGE_REPO_NAME}:latest
                         '''
                     } 
                     }
