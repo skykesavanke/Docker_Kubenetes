@@ -9,7 +9,7 @@ pipeline{
     environment {
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
-        IMAGE_REPO_NAME =  "${ecr_repo}".toLowerCase()
+        IMAGE_REPO_NAME =  'cluster_repo'
         AWS_REGION = 'us-east-1'
         ECR_URL= "211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com"
     }
