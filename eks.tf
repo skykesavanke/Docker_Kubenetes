@@ -43,4 +43,3 @@ resource "aws_eks_cluster" "eks" {
 #     aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
 #     aws_iam_role_policy_attachment.eks_node_AmazonEC2ContainerRegistryReadOnly
 #   ]
-}
