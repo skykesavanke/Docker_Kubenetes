@@ -46,7 +46,7 @@ pipeline{
                 }
                 else if (params.Action == 'build-push') {
                         
-                        sh '''
+                        bat '''
                             docker build -t ${IMAGE_REPO_NAME}:latest .
                             aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com
                             docker tag ${IMAGE_REPO_NAME}:latest 211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:latest
