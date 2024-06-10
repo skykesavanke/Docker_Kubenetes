@@ -1,6 +1,7 @@
 variable "aws_region" {
         description = "This describe the region"
         type = string
+        default = "us-east-1"
   
 }
 variable "ecr_repo" {
