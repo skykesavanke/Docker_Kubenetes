@@ -9,7 +9,8 @@ pipeline{
     environment {
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
-        IMAGE_REPO_NAME = "${ecr_repo}"
+        IMAGE_REPO_NAME = 'cluster_repo'
+        AWS_REGION = 'us-east-1'
     }
     
     stages{
@@ -44,21 +45,17 @@ pipeline{
                     }
                 }
                 else if (params.Action == 'build-push') {
-                       
-                       sh 'docker build -t ${IMAGE_REPO_NAME}:latest .'
-
-                        withCredentials([usernamePassword(credentialsId: 'ecr-login-credentials', passwordVariable: 'ECR_PASSWORD')]) {
-                            sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125415675.dkr.ecr.us-east-1.amazonaws.com'
-                        }
-                         sh "docker tag ${IMAGE_REPO_NAME}:latest 211125415675.dkr.ecr.us-east-1.amazonaws.com/${IMAGE_REPO_NAME}:latest"
-
-                   
-                        sh "docker push 211125415675.dkr.ecr.us-east-1.amazonaws.com/${IMAGE_REPO_NAME}:latest"
-                    } 
-                else {
+                        
+                        sh '''
+                            docker build -t ${IMAGE_REPO_NAME}:latest .
+                            aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com
+                            docker tag ${IMAGE_REPO_NAME}:latest 211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:latest
+                            docker push 211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:latest
+                        '''
+                    } else {
                         error "Invalid action: ${params.Action}"
                     }
-
+                
              }
            }
         }
