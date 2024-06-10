@@ -45,12 +45,17 @@ pipeline{
                     }
                 }
                 else if (params.Action == 'build-push') {
+                     script {
+                            def imageRepoName = "${env.IMAGE_REPO_NAME}"
+                            def awsRegion = "${env.AWS_REGION}"
+                            def ecrUrl = "211125415675.dkr.ecr.${awsRegion}.amazonaws.com"
+
                         
                         bat '''
-                            docker build -t ${IMAGE_REPO_NAME}:latest .
-                            aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com
-                            docker tag ${IMAGE_REPO_NAME}:latest 211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:latest
-                            docker push 211125415675.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:latest
+                            docker build -t ${imageRepoName}:latest .
+                            aws ecr get-login-password --region ${awsRegion} | docker login --username AWS --password-stdin 211125415675.dkr.ecr.${awsRegion}.amazonaws.com
+                            docker tag ${imageRepoName}:latest 211125415675.dkr.ecr.${awsRegion}.amazonaws.com/${imageRepoName}:latest
+                            docker push 211125415675.dkr.ecr.${awsRegion}.amazonaws.com/${imageRepoName}:latest
                         '''
                     } else {
                         error "Invalid action: ${params.Action}"
