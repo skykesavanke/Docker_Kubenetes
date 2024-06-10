@@ -1,10 +1,10 @@
 pipeline{
-    agent any 
-    
-    parameters{
-        choice(name:'Action',choices:['plan','apply','destroy','build-push'],description:'Select the action to be performed')
-        booleanParam(name:'ApplyApproval',defaultValue:false,description:'Are you confirming terraform apply')
-        booleanParam(name:'DestroyApproval',defaultValue:false,description:'Are you confirming terraform destroy')
+    agent any
+     parameters{
+        choice(name:'branch',choices:['main'],description:'Select the branch to be performed')
+        choice(name:'Action',choices:['plan','apply','destroy'],description:'Select the action to be performed')
+        booleanParam(name:'ApplyApprove',defaultValue:false,description:'Are you confirming terraform apply')
+        booleanParam(name:'DestroyApprove',defaultValue:false,description:'Are you confirming terraform destroy')
      }
     environment {
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
@@ -40,35 +40,28 @@ pipeline{
                 }
                 else if(params.Action=='destroy'){
                     if(params.DestroyApproval){
-                        bat 'C:\\Users\\kesavank\\Terraform\\terraform destroy -auto-approve'
+                        bat'terraform destroy -auto-approve'
                     }
                 }
-                else if (params.Action == 'build-push') {
-                       
-                       sh 'docker build -t ${IMAGE_REPO_NAME}:latest .'
-
-                        withCredentials([usernamePassword(credentialsId: 'ecr-login-credentials', passwordVariable: 'ECR_PASSWORD')]) {
-                            sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125415675.dkr.ecr.us-east-1.amazonaws.com'
-                        }
-                         sh "docker tag ${IMAGE_REPO_NAME}:latest 211125415675.dkr.ecr.us-east-1.amazonaws.com/${IMAGE_REPO_NAME}:latest"
-
-                   
-                        sh "docker push 211125415675.dkr.ecr.us-east-1.amazonaws.com/${IMAGE_REPO_NAME}:latest"
-                    } 
-                else {
-                        error "Invalid action: ${params.Action}"
-                    }
-
-             }
-           }
         }
+      }
+    }
     }
 }
-
-
-
-  
-       
-
-
-                   
+'
+                }
+                else if(params.Action=='apply'){
+                    if(params.ApplyApproval){
+                        bat 'terraform apply -auto-approve'
+                    }
+                }
+                else if(params.Action=='destroy'){
+                    if(params.DestroyApproval){
+                        bat'terraform destroy -auto-approve'
+                    }
+                }
+        }
+      }
+    }
+    }
+}
