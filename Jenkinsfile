@@ -57,7 +57,9 @@ pipeline{
                             docker tag ${imageRepoName}:latest 211125415675.dkr.ecr.${awsRegion}.amazonaws.com/${imageRepoName}:latest
                             docker push 211125415675.dkr.ecr.${awsRegion}.amazonaws.com/${imageRepoName}:latest
                         '''
-                    } else {
+                    } 
+                    }
+                    else {
                         error "Invalid action: ${params.Action}"
                     }
                 
