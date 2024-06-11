@@ -31,7 +31,7 @@ variable "azs" {
 variable "aws_eks_node_group" {
   description = "This defines the eks cluster"
   type        = string
-  default     = "eks-node-group"
+  default     = "node-group"
 
 }
 
