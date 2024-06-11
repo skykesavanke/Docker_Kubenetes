@@ -40,4 +40,8 @@ resource "aws_eks_node_group" "eks_node_grp" {
     max_size     = 2
     min_size     = 1
   }
+
+instance_types = ["t3.medium"]
+
+
 }
