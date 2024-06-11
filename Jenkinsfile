@@ -71,6 +71,13 @@ pipeline{
              }
            }
         }
+        stage('Build another pipeline'){
+            steps{
+                script{
+                    build job :'Terraform_EKS_2'
+                }
+            }
+        }
     }
 }
 
