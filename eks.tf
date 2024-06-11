@@ -19,10 +19,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     subnet_ids = aws_subnet.main[*].id
   }
 
-#   depends_on = [
-#     aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy,
-#     aws_iam_role_policy_attachment.eks_cluster_AmazonEKSVPCResourceController
-#   ]
+
 }
 
 
@@ -40,7 +37,3 @@ resource "aws_eks_node_group" "eks_node_grp" {
   }
 }
 
-#   depends_on = [
-#     aws_iam_role_policy_attachment.eks_node_AmazonEKSWorkerNodePolicy,
-#     aws_iam_role_policy_attachment.eks_node_AmazonEC2ContainerRegistryReadOnly
-#   ]
