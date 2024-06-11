@@ -54,7 +54,8 @@ instance_types = ["t3.medium"]
 
   remote_access {
     source_security_group_ids = [aws_security_group.cluster_security_group.id]  
-  }
+    ec2_ssh_key = "first"
+}
 }
 resource "aws_security_group" "cluster_security_group" {
   vpc_id = aws_vpc.main.id
