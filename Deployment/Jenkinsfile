@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    environment {
+        KUBECONFIG = credentials('kubeconfig-credential-id') 
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch:'main',url:'https://github.com/skykesavanke/Docker_Kubenetes.git'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                   
+                    sh 'kubectl version --client'
+
+                   
+                    sh 'kubectl apply -f deployment.yaml'
+
+                  
+                    sh 'kubectl apply -f service.yaml'
+                }
+            }
+        }
+    }
+}
