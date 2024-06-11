@@ -9,6 +9,11 @@ resource "aws_subnet" "main" {
   cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index)
   availability_zone       = element(var.azs, count.index)
   map_public_ip_on_launch = true
+  tags = {
+    Name = "eks-subnet-${count.index}"
+    "kubernetes.io/cluster/my-cluster" = "shared"
+    "kubernetes.io/role/elb" = "1"
+  }
 }
 
 resource "aws_eks_cluster" "eks_cluster" {
@@ -36,4 +41,3 @@ resource "aws_eks_node_group" "eks_node_grp" {
     min_size     = 1
   }
 }
-
