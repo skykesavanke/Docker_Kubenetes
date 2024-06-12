@@ -36,9 +36,9 @@ variable "aws_eks_node_group" {
 }
 variable "aws_security_group" {
   description = "This defines the security group"
-  type = string
-  default = "cluster-security-group"
-  
+  type        = string
+  default     = "cluster-security-group"
+
 }
 
 
