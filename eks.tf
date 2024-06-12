@@ -34,6 +34,12 @@ resource "aws_eks_cluster" "eks_cluster" {
     endpoint_private_access = false
     public_access_cidrs     = ["0.0.0.0/0"]
   }
+   depends_on = [
+    
+    aws_iam_role_policy_attachment.eks_worker_node_policy,
+    aws_iam_role_policy_attachment.eks_cni_policy,
+    aws_iam_role_policy_attachment.ec2_container_registry_read_only,
+  ]
   }
 
 
