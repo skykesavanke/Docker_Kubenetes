@@ -30,10 +30,14 @@ resource "aws_eks_cluster" "eks_cluster" {
 
   vpc_config {
     subnet_ids = aws_subnet.main[*].id
+    endpoint_public_access  = true
+    endpoint_private_access = false
+    public_access_cidrs     = ["0.0.0.0/0"]
+  }
   }
 
 
-}
+
 
 
 
@@ -58,7 +62,7 @@ resource "aws_eks_node_group" "eks_node_grp" {
   ]
 
 
-
+ami_type = "AL2_x86_64"
 instance_types = ["t3.medium"]
 
 
